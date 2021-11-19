@@ -4,32 +4,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
 import './Style.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <Container fluid>
-          <Row>
+      <Container fluid>
+        <Row>
             <Col>
-              <Row>
-                <Col className="DashboardItem">
-                  Calendar
-                </Col>
+              <Row className="RowDashboardItem"> 
+                Calendar
               </Row>
-              <Row>
-                <Col className="DashboardItem">
-                  Data
-                </Col>
+              <Row className="RowDashboardItem">
+                Data
               </Row>
             </Col>
-            <Col className="DashboardItem">
+            <Col className="ColDashboardItem">
               Current Volume
+              <Image src="" />
             </Col>
-          </Row>
-        </Container>
-      </header>
+        </Row>
+      </Container>
     </div>
   );
 }
