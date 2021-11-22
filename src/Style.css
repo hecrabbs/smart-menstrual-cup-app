@@ -17,3 +17,9 @@
     justify-content: center;
     height: 100vh;
 }
+
+.progressBar { 
+    min-height: 350px;
+    min-width: 350px; 
+    transform: rotate(-90deg);
+}

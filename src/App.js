@@ -7,6 +7,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
 import './Style.css';
+import React from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 
 function App() {
   return (
@@ -23,12 +26,14 @@ function App() {
             </Col>
             <Col className="ColDashboardItem">
               Current Volume
-              <Image src="" />
+              <ProgressBar now={60} className="progressBar"/>
             </Col>
         </Row>
       </Container>
     </div>
   );
 }
+
+
 
 export default App;
