@@ -11,6 +11,8 @@ import Modal from 'react-bootstrap/Modal';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import React, { useState } from 'react';
 import './Style.css';
+import React from 'react';
+import ProgressBar from 'react-bootstrap/ProgressBar'
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
 function Chart(props) {
@@ -112,6 +114,7 @@ function App() {
             </Col>
             <Col className="ColDashboardItem">
               Current Volume
+              <ProgressBar now={60} className="progressBar"/>
             </Col>
         </Row>
       </Container>
@@ -119,5 +122,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;
