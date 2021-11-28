@@ -15,7 +15,9 @@ import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import Toast from 'react-bootstrap/Toast'
 import {Spring } from 'react-spring' 
 
-const val = Math.floor(Math.random()*101); 
+const vol = Math.floor(Math.random()*31); 
+const val = (vol/30) * 100; 
+
 
 function Chart(props) {
   const data = [
@@ -139,7 +141,7 @@ function App() {
               <div> 
                {notif()} 
               </div>
-              Current Volume
+              Current Volume: {vol} mL
               <ProgressBar now={val} className="progressBar"/> 
             </Col>
         </Row>
