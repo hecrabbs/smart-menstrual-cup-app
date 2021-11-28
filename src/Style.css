@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     height: 50vh;
+    background-color: #EEEBE7;
 }
 
 .ColDashboardItem {
@@ -16,12 +17,15 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background-color: #EEEBE7;
 }
 
 .progressBar { 
     min-height: 350px;
     min-width: 350px; 
     transform: rotate(-90deg);
+    background-color: white;
+    color: #6F1A07;
 }
 
 .Modal {

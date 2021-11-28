@@ -13,6 +13,9 @@ import React, { useState } from 'react';
 import './Style.css';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import Toast from 'react-bootstrap/Toast'
+import {Spring } from 'react-spring' 
+
+const val = Math.floor(Math.random()*101); 
 
 function Chart(props) {
   const data = [
@@ -80,6 +83,22 @@ function App() {
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
 
+  function notif(){ 
+    if (val > 85){ 
+      return ( 
+        <Toast onClose={toggleShowB} show={showB} animation={false}>
+        <Toast.Header>
+          <strong className="me-auto">Notification</strong>
+        </Toast.Header>
+        <Toast.Body>Time to remove soon!</Toast.Body>
+      </Toast>
+      );
+    } else { 
+      return null; 
+    }
+  }
+
+
 
   return (
     <div className="App">
@@ -118,15 +137,12 @@ function App() {
                 </Card>
               </Row>
             </Col>
-            <Col className="ColDashboardItem">
-            <Toast onClose={toggleShowB} show={showB} animation={false}>
-                <Toast.Header>
-                  <strong className="me-auto">Notification</strong>
-                </Toast.Header>
-                <Toast.Body>Time to remove soon!</Toast.Body>
-              </Toast>
+            <Col className="ColDashboardItem"> 
+              <div> 
+               {notif()} 
+              </div>
               Current Volume
-              <ProgressBar now={60} className="progressBar"/>
+              <ProgressBar now={val} className="progressBar"/> 
             </Col>
         </Row>
       </Container>
