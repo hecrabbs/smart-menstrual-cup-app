@@ -11,9 +11,8 @@ import Modal from 'react-bootstrap/Modal';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import React, { useState } from 'react';
 import './Style.css';
-import React from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar'
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import Toast from 'react-bootstrap/Toast'
 
 function Chart(props) {
   const data = [
@@ -75,6 +74,13 @@ function App() {
   const [showData, setShowData] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
+  const [showA, setShowA] = useState(true);
+  const [showB, setShowB] = useState(true);
+
+  const toggleShowA = () => setShowA(!showA);
+  const toggleShowB = () => setShowB(!showB);
+
+
   return (
     <div className="App">
       <Container fluid>
@@ -113,6 +119,12 @@ function App() {
               </Row>
             </Col>
             <Col className="ColDashboardItem">
+            <Toast onClose={toggleShowB} show={showB} animation={false}>
+                <Toast.Header>
+                  <strong className="me-auto">Notification</strong>
+                </Toast.Header>
+                <Toast.Body>Time to remove soon!</Toast.Body>
+              </Toast>
               Current Volume
               <ProgressBar now={60} className="progressBar"/>
             </Col>
