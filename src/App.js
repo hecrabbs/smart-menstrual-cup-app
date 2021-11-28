@@ -97,9 +97,7 @@ function App() {
       return null; 
     }
   }
-
-
-
+  
   return (
     <div className="App">
       <Container fluid>
