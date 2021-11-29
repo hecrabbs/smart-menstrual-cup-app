@@ -14,7 +14,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 import Toast from 'react-bootstrap/Toast'
 
 import React, { useState } from 'react';
-import { LineChart, Line, CartesianGrid, ResponsiveContainer, YAxis, XAxis, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, CartesianGrid, ResponsiveContainer, YAxis, XAxis, Tooltip, Label} from 'recharts';
 import './Style.css';
 
 import format from "date-fns/format";
@@ -120,59 +120,34 @@ function App() {
   function Chart(props) {
     const data = [
       {
-        name: 'Page A',
-        uv: 4000,
-        pv: 2400,
-        amt: 2400,
+        name: 'Week 1',
+        pv: 2400
       },
       {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
+        name: 'Week 2',
+        pv: 1398
       },
       {
-        name: 'Page C',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
+        name: 'Week 3',
+        pv: 9800
       },
       {
-        name: 'Page D',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
-      },
-      {
-        name: 'Page E',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
-      },
-      {
-        name: 'Page F',
-        uv: 2390,
-        pv: 3800,
-        amt: 2500,
-      },
-      {
-        name: 'Page G',
-        uv: 3490,
-        pv: 4300,
-        amt: 2100,
-      },
+        name: 'Week 4',
+        pv: 3908
+      }
     ]; 
     return(
       <ResponsiveContainer>
         <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
+            <XAxis dataKey="name">
+              <Label value = "Week of Month" offset = {0} position = "bottom" />
+              </XAxis>
+            <YAxis>
+            <Label value = "Volume (mL)" offset = {0} position = "left" />
+            </YAxis>
             <Tooltip />
-            <Legend />
             <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            <Line type="monotone" dataKey="amt" stroke="#FF856A" />
         </LineChart>
       </ResponsiveContainer>
     ) 
