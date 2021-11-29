@@ -95,12 +95,27 @@ function App() {
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
 
-  const [newSymptom, setNewSymptom] = useState({title: "", start: "", end: ""})
+
+  const [newSymptom, changeNewSymptom] = useState({title: "", 
+  start: new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDay() - 2) , 
+  end: ""}) 
+  const setNewSymptom = (symptom) => {
+    // maintaining name to reduce refactor complexity 
+    symptom.end = symptom.start; 
+  
+    changeNewSymptom(symptom); 
+
+  }
   const [allSymptoms, setAllSymptoms] = useState(symptoms)
 
   function addSymptom(){ 
     setAllSymptoms([...allSymptoms, newSymptom])
   }
+  const formats = {
+    eventTimeRangeFormat: () => { 
+      return "";
+    },
+  };
 
   function Chart(props) {
     const data = [
@@ -188,21 +203,17 @@ function App() {
                 <Stack direction="horizontal" gap={3}>
                   <div>Calendar</div>
                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
+
+                 </Stack>
+  <Stack gap={3}>
+                <div>How are you feeling today?</div>
+                <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
+                <Button onClick={addSymptom}>
+                  Add Symptom
+                </Button>
+
                 </Stack>
-                <Stack gap={3} >
-                  <div>How are you feeling today?</div>
-                  <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
-                  <DatePicker 
-                    placeholderText="Start Date" 
-                    selected={newSymptom.start}  
-                    onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}
-                  />
-                    {/* <DatePicker placeholderText="Date Experienced" style={{marginRight:"10px"}} selected={newSymptom.end} 
-                    onChange={(end) => setNewSymptom({...newSymptom, end})} /> */}
-                  <Button onClick={addSymptom}>
-                    Add Symptom
-                  </Button>
-                </Stack>
+
               </Col>
 
               <Modal  
@@ -210,29 +221,29 @@ function App() {
                 onHide={() => setShowCalendar(false)}
                 dialogClassName="Modal" 
               >
+
+      
                 <h1 className="mx-auto">Calendar</h1>
                 <h3 className="mx-auto">How are you feeling today?</h3>
                 <Stack gap={2} className="mx-auto">
-                  <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
-                        {/* <DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start} 
-                        onChange={(start) => setNewSymptom({...newSymptom, start})} /> */}
-                  <DatePicker 
-                    placeholderText="Start Date" 
-                    selected={newSymptom.start}  
-                    onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}
-                  />
-                  <button onClick={addSymptom}>
+                            <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
+ 
+
+                      <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newSymptom.start} 
+                      onChange={(start) => setNewSymptom({ ...newSymptom, start })} />
+
+
+                   <Button onClick={addSymptom}>
                     Add Symptom
-                  </button>
+                  </Button>
                 </Stack>
-                <Calendar 
-                  localizer={localizer} 
-                  events={allSymptoms} 
-                  startAccessor={"start"} 
-                  endAccessor={"end"} 
-                  views={MonthView}
-                  style={{height:500, margin: "50px"}} 
-                />
+                      <Calendar 
+                      formats = {formats}
+                      localizer={localizer} 
+                      events={allSymptoms} 
+                      startAccessor={"start"} 
+                      endAccessor={"end"} 
+                      style={{height:500, margin: "50px"}} />
               </Modal>
             </Row>
 
