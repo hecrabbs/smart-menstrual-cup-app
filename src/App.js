@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,11 +11,12 @@ import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import Stack from 'react-bootstrap/Stack'
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import Toast from 'react-bootstrap/Toast'
+
 import React, { useState } from 'react';
 import { LineChart, Line, CartesianGrid, ResponsiveContainer, YAxis, XAxis, Tooltip, Legend } from 'recharts';
 import './Style.css';
 
-import Toast from 'react-bootstrap/Toast'
 import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
@@ -80,67 +82,6 @@ const t_day = [
 const vol = Math.floor(Math.random()*31); 
 const val = (vol/30) * 100; 
 
-function Chart(props) {
-  const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ]; 
-  return(
-    <ResponsiveContainer>
-      <LineChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="amt" stroke="#FF856A" />
-      </LineChart>
-    </ResponsiveContainer>
-  ) 
-}
-
 function App() {
   const today = new Date(); 
   const t = (today.getFullYear(), today.getMonth(), today.getDay());
@@ -161,50 +102,107 @@ function App() {
     setAllSymptoms([...allSymptoms, newSymptom])
   }
 
+  function Chart(props) {
+    const data = [
+      {
+        name: 'Page A',
+        uv: 4000,
+        pv: 2400,
+        amt: 2400,
+      },
+      {
+        name: 'Page B',
+        uv: 3000,
+        pv: 1398,
+        amt: 2210,
+      },
+      {
+        name: 'Page C',
+        uv: 2000,
+        pv: 9800,
+        amt: 2290,
+      },
+      {
+        name: 'Page D',
+        uv: 2780,
+        pv: 3908,
+        amt: 2000,
+      },
+      {
+        name: 'Page E',
+        uv: 1890,
+        pv: 4800,
+        amt: 2181,
+      },
+      {
+        name: 'Page F',
+        uv: 2390,
+        pv: 3800,
+        amt: 2500,
+      },
+      {
+        name: 'Page G',
+        uv: 3490,
+        pv: 4300,
+        amt: 2100,
+      },
+    ]; 
+    return(
+      <ResponsiveContainer>
+        <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+            <Line type="monotone" dataKey="amt" stroke="#FF856A" />
+        </LineChart>
+      </ResponsiveContainer>
+    ) 
+  }
 
-
-  function notif(){ 
+  function Notif(props){ 
     if (val > 85){ 
       return ( 
         <Toast onClose={toggleShowB} show={showB} animation={false} style = {{marginBottom: "10px"}}>
-        <Toast.Header>
-          <strong className="me-auto">Notification</strong>
-        </Toast.Header>
-        <Toast.Body>Time to remove soon!</Toast.Body>
-      </Toast>
+          <Toast.Header>
+            <strong className="me-auto">Notification</strong>
+          </Toast.Header>
+          <Toast.Body>Time to remove soon!</Toast.Body>
+        </Toast>
       );
     } else { 
       return null; 
     }
   }
-
   
   return (
     <div className="App">
       <Container fluid className="ContainerStyle">
         <Row className="h-100">
           <Col className="ColDashboardItem">
-            <Row className="h-50"> 
+            <Row className="h-50 w-100"> 
               <Col>              
                 <Stack direction="horizontal" gap={3}>
                   <div>Calendar</div>
                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
-                 </Stack>
-                 How are you feeling today?
-                <input type="text" placeholder ="Add Symptom" style={{width: "20%", marginRight:"10px"}}
-                value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})} 
-                /> 
-                
-                <DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start}  
-                onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}/>
-                {/* <DatePicker placeholderText="Date Experienced" style={{marginRight:"10px"}} selected={newSymptom.end} 
-                onChange={(end) => setNewSymptom({...newSymptom, end})} /> */}
-            
-                
-                  <button style={{marginTop: "10px"}} onClick={addSymptom}>
-                     Add Symptom
-                  </button>
-            
+                </Stack>
+                <Stack gap={3} >
+                  <div>How are you feeling today?</div>
+                  <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
+                  <DatePicker 
+                    placeholderText="Start Date" 
+                    selected={newSymptom.start}  
+                    onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}
+                  />
+                    {/* <DatePicker placeholderText="Date Experienced" style={{marginRight:"10px"}} selected={newSymptom.end} 
+                    onChange={(end) => setNewSymptom({...newSymptom, end})} /> */}
+                  <Button onClick={addSymptom}>
+                    Add Symptom
+                  </Button>
+                </Stack>
               </Col>
 
               <Modal  
@@ -212,49 +210,44 @@ function App() {
                 onHide={() => setShowCalendar(false)}
                 dialogClassName="Modal" 
               >
-                                    <div className ='App'>
-                      <h1> Calendar </h1>
-                      <h2>How are you feeling today?</h2>
-                      <div>
-                        <input type="text" placeholder ="Add Symptom" style={{width: "20%", marginRight:"10px"}}
-                          value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})} 
-                        /> 
+                <h1 className="mx-auto">Calendar</h1>
+                <h3 className="mx-auto">How are you feeling today?</h3>
+                <Stack gap={2} className="mx-auto">
+                  <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
                         {/* <DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start} 
                         onChange={(start) => setNewSymptom({...newSymptom, start})} /> */}
-
-<DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start}  
-                onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}/>
-
-
-                        <button style={{marginTop: "10px"}} onClick={addSymptom}>
-                          Add Symptom
-                        </button>
-
-                      </div>
-                      <Calendar 
-                      localizer={localizer} 
-                      events={allSymptoms} 
-                      startAccessor={"start"} 
-                      endAccessor={"end"} 
-                      views={MonthView}
-                      style={{height:500, margin: "50px"}} />
-
-                    </div>
+                  <DatePicker 
+                    placeholderText="Start Date" 
+                    selected={newSymptom.start}  
+                    onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}
+                  />
+                  <button onClick={addSymptom}>
+                    Add Symptom
+                  </button>
+                </Stack>
+                <Calendar 
+                  localizer={localizer} 
+                  events={allSymptoms} 
+                  startAccessor={"start"} 
+                  endAccessor={"end"} 
+                  views={MonthView}
+                  style={{height:500, margin: "50px"}} 
+                />
               </Modal>
             </Row>
 
-            <Row className="h-50">
+            <Row className="h-50 w-100">
               <Col>
                 <Stack direction="horizontal" gap={3}>
                   <div>Data</div>
                   <Button className="ms-auto" onClick={() => setShowData(true)}>Expand</Button>  
                 </Stack>
               </Col>
-              
+
               <div>
-              <Chart/>
+                <Chart/>
               </div>
-              
+
               <Modal 
                 show={showData} 
                 onHide={() => setShowData(false)}
@@ -265,16 +258,16 @@ function App() {
               </Modal>
             </Row>
           </Col>
+
           <Col className="ColDashboardItem">
             <Row>
-              Current Volume
-            </Row>
-            <Row>
               <div> 
-               {notif()} 
+               <Notif/> 
               </div>
               Current Volume: {vol} mL
-              <ProgressBar now={val} className="progressBar"/> 
+            </Row>
+            <Row>
+              <ProgressBar now={val} className="progressBar" variant="danger"/> 
             </Row>
           </Col>
         </Row>
@@ -283,7 +276,5 @@ function App() {
     </div>
   );
 }
-
-
 
 export default App;
