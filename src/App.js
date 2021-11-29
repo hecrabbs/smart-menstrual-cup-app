@@ -8,12 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
+import Stack from 'react-bootstrap/Stack'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import React, { useState } from 'react';
+import { LineChart, Line, CartesianGrid, ResponsiveContainer, YAxis, XAxis, Tooltip, Legend } from 'recharts';
 import './Style.css';
-import React from 'react';
-import ProgressBar from 'react-bootstrap/ProgressBar'
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
 function Chart(props) {
   const data = [
@@ -62,10 +61,15 @@ function Chart(props) {
   ]; 
   return(
     <ResponsiveContainer>
-      <LineChart width="90%" height={400} data={data}>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="amt" stroke="#8884d8" />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+      <LineChart data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="pv" stroke="#8884d8" />
+          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="amt" stroke="#FF856A" />
       </LineChart>
     </ResponsiveContainer>
   ) 
@@ -77,45 +81,56 @@ function App() {
 
   return (
     <div className="App">
-      <Container fluid>
-        <Row>
-            <Col>
-              <Row className="RowDashboardItem"> 
-                <Card className="RowDashboardItem">
-                  Calendar
-                  <Button onClick={() => setShowCalendar(true)}>
-                    Expand
-                  </Button>
-                  <Modal 
-                    show={showCalendar} 
-                    onHide={() => setShowCalendar(false)}
-                    dialogClassName="Modal"
-                  >
-                    Test Modal
-                  </Modal>
-                </Card>
-              </Row>
-              <Row className="RowDashboardItem">
-                <Card className="RowDashboardItem">
-                  Data
-                  <Button onClick={() => setShowData(true)}>
-                    Expand
-                  </Button>
-                  <Modal 
-                    show={showData} 
-                    onHide={() => setShowData(false)}
-                    dialogClassName="Modal"
-                  >
-                    Test Modal
-                    <Chart/>
-                  </Modal>
-                </Card>
-              </Row>
-            </Col>
-            <Col className="ColDashboardItem">
+      <Container fluid className="ContainerStyle">
+        <Row className="h-100">
+          <Col className="ColDashboardItem">
+            <Row className="h-50"> 
+              <Col>              
+                <Stack direction="horizontal" gap={3}>
+                  <div>Calendar</div>
+                  <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
+                  </Stack>
+              </Col>
+
+              <Modal  
+                show={showCalendar} 
+                onHide={() => setShowCalendar(false)}
+                dialogClassName="Modal" 
+              >
+                Test Modal
+              </Modal>
+            </Row>
+
+            <Row className="h-50">
+              <Col>
+                <Stack direction="horizontal" gap={3}>
+                  <div>Data</div>
+                  <Button className="ms-auto" onClick={() => setShowData(true)}>Expand</Button>  
+                </Stack>
+              </Col>
+              
+              <div>
+              <Chart/>
+              </div>
+              
+              <Modal 
+                show={showData} 
+                onHide={() => setShowData(false)}
+                dialogClassName="Modal"
+              >
+                Test Modal
+                <Chart/>
+              </Modal>
+            </Row>
+          </Col>
+          <Col className="ColDashboardItem">
+            <Row>
               Current Volume
+            </Row>
+            <Row>
               <ProgressBar now={60} className="progressBar"/>
-            </Col>
+            </Row>
+          </Col>
         </Row>
       </Container>
 
