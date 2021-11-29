@@ -1,0 +1,117 @@
+[1mdiff --git a/src/App.js b/src/App.js[m
+[1mindex 8557b63..4cff363 100644[m
+[1m--- a/src/App.js[m
+[1m+++ b/src/App.js[m
+[36m@@ -26,6 +26,7 @@[m [mimport "react-big-calendar/lib/css/react-big-calendar.css";[m
+ import DatePicker from "react-datepicker";[m
+ import "react-datepicker/dist/react-datepicker.css";[m
+ import { MonthView } from 'react-calendar';[m
+[32m+[m[32mimport { Form } from 'react-bootstrap';[m
+ [m
+ const locales = {[m
+   "en-US" : require("date-fns/locale/en-US")[m
+[36m@@ -138,13 +139,13 @@[m [mfunction App() {[m
+     ]; [m
+     return([m
+       <ResponsiveContainer>[m
+[31m-        <LineChart data={data}>[m
+[32m+[m[32m        <LineChart data={data} margin={{ top: 5, right: 5, left: 20, bottom: 20 }}>[m
+         <CartesianGrid strokeDasharray="3 3" />[m
+             <XAxis dataKey="name">[m
+               <Label value = "Week of Month" offset = {0} position = "bottom" />[m
+               </XAxis>[m
+             <YAxis>[m
+[31m-            <Label value = "Volume (mL)" offset = {0} position = "left" />[m
+[32m+[m[32m            <Label value = "Volume (mL)" offset = {0} position = "left" angle="-90"/>[m
+             </YAxis>[m
+             <Tooltip />[m
+             <Line type="monotone" dataKey="pv" stroke="#8884d8" />[m
+[36m@@ -178,17 +179,14 @@[m [mfunction App() {[m
+                 <Stack direction="horizontal" gap={3}>[m
+                   <div>Calendar</div>[m
+                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>[m
+[31m-[m
+[31m-                 </Stack>[m
+[31m-  <Stack gap={3}>[m
+[31m-                <div>How are you feeling today?</div>[m
+[31m-                <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> [m
+[31m-                <Button onClick={addSymptom}>[m
+[31m-                  Add Symptom[m
+[31m-                </Button>[m
+[31m-[m
+                 </Stack>[m
+[31m-[m
+[32m+[m[32m                <Stack gap={3}>[m
+[32m+[m[32m                  <div>How are you feeling today?</div>[m
+[32m+[m[32m                  <Form onSubmit={(e) => {addSymptom()}}>[m
+[32m+[m[32m                    <Form.Control type="text" placeholder="Add Symptom" onChange={(e) => setNewSymptom({...newSymptom, title: e.currentTarget.value})}/>[m
+[32m+[m[32m                    <Button type="submit" >Add Symptom</Button>[m
+[32m+[m[32m                  </Form>[m
+[32m+[m[32m                </Stack>[m
+               </Col>[m
+ [m
+               <Modal  [m
+[36m@@ -196,29 +194,44 @@[m [mfunction App() {[m
+                 onHide={() => setShowCalendar(false)}[m
+                 dialogClassName="Modal" [m
+               >[m
+[31m-[m
+[31m-      [m
+                 <h1 className="mx-auto">Calendar</h1>[m
+                 <h3 className="mx-auto">How are you feeling today?</h3>[m
+[31m-                <Stack gap={2} className="mx-auto">[m
+[31m-                            <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> [m
+[31m- [m
+[31m-[m
+[31m-                      <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newSymptom.start} [m
+[31m-                      onChange={(start) => setNewSymptom({ ...newSymptom, start })} />[m
+[31m-[m
+[31m-[m
+[31m-                   <Button onClick={addSymptom}>[m
+[32m+[m[41m               [m
+[32m+[m[32m                  {/* <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/>  */}[m
+[32m+[m[32m                  <Form onSubmit={(e) => {addSymptom()}}>[m
+[32m+[m[32m                    <Form.Control type="text" placeholder="Add Symptom" onChange={(e) => setNewSymptom({...newSymptom, title: e.currentTarget.value})}/>[m
+[32m+[m[32m                    <DatePicker[m[41m [m
+[32m+[m[32m                    placeholderText="Start Date"[m[41m [m
+[32m+[m[32m                    style={{ marginRight: "10px" }}[m[41m [m
+[32m+[m[32m                    selected={newSymptom.start}[m[41m [m
+[32m+[m[32m                    onChange={(start) => setNewSymptom({ ...newSymptom, start })}[m[41m [m
+[32m+[m[32m                  />[m
+[32m+[m[32m                    <Button type="submit" >Add Symptom</Button>[m
+[32m+[m[32m                  </Form>[m
+[32m+[m[41m                 [m
+[32m+[m[41m          [m
+[32m+[m[32m                {/* <Stack gap={2} className="mx-auto">[m
+[32m+[m[32m                  <Form onSubmit={(e) => setNewSymptom({...newSymptom, title: e.target.value})}>[m
+[32m+[m[32m                    <Form.Control type="text" placeholder="Add Symptom" value={newSymptom.title}/>[m
+[32m+[m[32m                  </Form>[m
+[32m+[m[32m                  <DatePicker[m[41m [m
+[32m+[m[32m                    placeholderText="Start Date"[m[41m [m
+[32m+[m[32m                    style={{ marginRight: "10px" }}[m[41m [m
+[32m+[m[32m                    selected={newSymptom.start}[m[41m [m
+[32m+[m[32m                    onChange={(start) => setNewSymptom({ ...newSymptom, start })}[m[41m [m
+[32m+[m[32m                  />[m
+[32m+[m[32m                  <Button onClick={addSymptom}>[m
+                     Add Symptom[m
+                   </Button>[m
+[31m-                </Stack>[m
+[31m-                      <Calendar [m
+[31m-                      formats = {formats}[m
+[31m-                      localizer={localizer} [m
+[31m-                      events={allSymptoms} [m
+[31m-                      startAccessor={"start"} [m
+[31m-                      endAccessor={"end"} [m
+[31m-                      style={{height:500, margin: "50px"}} />[m
+[32m+[m[32m                </Stack> */}[m
+[32m+[m[32m                <Calendar[m[41m [m
+[32m+[m[32m                  formats = {formats}[m
+[32m+[m[32m                  localizer={localizer}[m[41m [m
+[32m+[m[32m                  events={allSymptoms}[m[41m [m
+[32m+[m[32m                  startAccessor={"start"}[m[41m [m
+[32m+[m[32m                  endAccessor={"end"}[m[41m [m
+[32m+[m[32m                  style={{height:500, margin: "50px"}}[m[41m [m
+[32m+[m[32m                />[m
+               </Modal>[m
+             </Row>[m
+ [m

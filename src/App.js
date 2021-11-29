@@ -138,13 +138,13 @@ function App() {
     ]; 
     return(
       <ResponsiveContainer>
-        <LineChart data={data}>
+        <LineChart data={data} margin={{ top: 5, right: 5, left: 20, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name">
               <Label value = "Week of Month" offset = {0} position = "bottom" />
               </XAxis>
             <YAxis>
-            <Label value = "Volume (mL)" offset = {0} position = "left" />
+            <Label value = "Volume (mL)" offset = {0} position = "left" angle="-90"/>
             </YAxis>
             <Tooltip />
             <Line type="monotone" dataKey="pv" stroke="#8884d8" />
@@ -182,9 +182,8 @@ function App() {
                 <Stack direction="horizontal" gap={3}>
                   <h2>Calendar</h2>
                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
-
-                 </Stack>
-  <Stack gap={3}>
+                </Stack>
+                <Stack gap={3}>
                 <div>How are you feeling today?</div>
                 <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
                 <Button onClick={() => { 
