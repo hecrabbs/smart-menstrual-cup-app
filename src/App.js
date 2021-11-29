@@ -120,20 +120,20 @@ function App() {
   function Chart(props) {
     const data = [
       {
-        name: 'Week 1',
-        pv: 2400
+        name: 'Day 1',
+        pv: 10
       },
       {
-        name: 'Week 2',
-        pv: 1398
+        name: 'Day 2',
+        pv: 20
       },
       {
-        name: 'Week 3',
-        pv: 9800
+        name: 'Day 3',
+        pv: 4
       },
       {
-        name: 'Week 4',
-        pv: 3908
+        name: 'Day 4',
+        pv: 2
       }
     ]; 
     return(
@@ -141,7 +141,7 @@ function App() {
         <LineChart data={data} margin={{ top: 5, right: 5, left: 20, bottom: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name">
-              <Label value = "Week of Month" offset = {0} position = "bottom" />
+              <Label value = "Day of Period" offset = {0} position = "bottom" />
               </XAxis>
             <YAxis>
             <Label value = "Volume (mL)" offset = {0} position = "left" angle="-90"/>
