@@ -8,17 +8,26 @@
     align-items: center;
     justify-content: center;
     height: 50vh;
+    background-color: #EEEBE7;
 }
 
 .ColDashboardItem {
-    height: 100%;
-    width:50%;
+    display:flex;
+    /* border-style: solid;
+    border-width: 3px; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #EEEBE7;
 }
 
 .progressBar { 
-    /* min-height: 40vw;
-    min-width: 90vh;  */
-    /* transform: rotate(-90deg); */
+    min-height: 350px;
+    min-width: 350px; 
+    transform: rotate(-90deg);
+    background-color: white;
+    color: #6F1A07;
 }
 
 .Modal {
