@@ -168,10 +168,6 @@ function App() {
     }
   }
 
-
-
-  
-  
   return (
     <div className="App">
       <Container fluid className="ContainerStyle">
@@ -184,23 +180,17 @@ function App() {
                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
                 </Stack>
                 <Stack gap={3}>
-                <div>How are you feeling today?</div>
-                <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
-                <Button onClick={() => { 
-                    setShowA(true);
-                     addSymptom();
-                     
-                     }} > Add Symptom </Button>
-                <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
-                        <Toast.Header>
-                          <strong className="me-auto"> Notification </strong>
-                        </Toast.Header>
-                        <Toast.Body> Symptom Logged!</Toast.Body>
-                      </Toast>
-
-
+                  <div>How are you feeling today?</div>
+                  <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
+                  <Button onClick={() => { 
+                            setShowA(true);
+                            addSymptom();
+                      }} > Add Symptom </Button>
+                  <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
+                    <Toast.Header><strong className="me-auto"> Notification </strong></Toast.Header>
+                    <Toast.Body> Symptom Logged!</Toast.Body>
+                  </Toast>
                 </Stack>
-
               </Col>
 
               <Modal  
@@ -209,46 +199,41 @@ function App() {
                 dialogClassName="Modal" 
               >
                 <Row>
-                  <Col className="h-100" lg={3}>
-                  
-                  <Stack gap={4} className="mx-auto" margin="10px" >
-                  <h1 className="mx-auto">Calendar</h1>
-                  <h3 className="mx-auto">How are you feeling today?</h3>
-                            <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
- 
-
-                      <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newSymptom.start} 
-                      onChange={(start) => setNewSymptom({ ...newSymptom, start })} />
-
-                  <Button onClick={() => { 
-                    setShowA(true);
-                     addSymptom();
-                     
-                     }} >
-
-                    Add Symptom
-                  </Button>
-                </Stack> 
-                <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
-                        <Toast.Header>
-                          <strong className="me-auto"> Notification </strong>
-                        </Toast.Header>
-                        <Toast.Body> Symptom Logged!</Toast.Body>
-                      </Toast>
-                </Col>
-                <Col>
-                <Calendar 
-                      formats = {formats}
-                      localizer={localizer} 
-                      events={allSymptoms} 
-                      startAccessor={"start"} 
-                      endAccessor={"end"} 
-                      style={{height:500, margin: "50px"}} 
-                      views={['month', 'week', 'day']}/>
-                      
-                </Col>
+                  <Col className="h-100" md={3}>
+                    <Stack gap={4} className="mx-auto" margin="10px" >
+                      <h1 className="mx-auto">Calendar</h1>
+                      <h3 className="mx-auto">How are you feeling today?</h3>
+                      <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
+                      <DatePicker 
+                        placeholderText="Start Date" 
+                        style={{ marginRight: "10px" }} 
+                        selected={newSymptom.start} 
+                        onChange={(start) => setNewSymptom({ ...newSymptom, start })} 
+                      />
+                      <Button onClick={() => { 
+                          setShowA(true);
+                          addSymptom();
+                      }}>
+                        Add Symptom
+                      </Button>
+                    </Stack> 
+                    <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
+                      <Toast.Header><strong className="me-auto"> Notification </strong></Toast.Header>
+                      <Toast.Body> Symptom Logged!</Toast.Body>
+                    </Toast>
+                  </Col>
+                  <Col>
+                    <Calendar 
+                          formats = {formats}
+                          localizer={localizer} 
+                          events={allSymptoms} 
+                          startAccessor={"start"} 
+                          endAccessor={"end"} 
+                          style={{height:500, margin: "50px"}} 
+                          views={['month', 'week', 'day']}
+                    />  
+                  </Col>
                 </Row>
-
               </Modal>
             </Row>
 
