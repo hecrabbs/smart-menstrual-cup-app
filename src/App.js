@@ -89,7 +89,7 @@ function App() {
   const [showData, setShowData] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
 
-  const [showA, setShowA] = useState(true);
+  const [showA, setShowA] = useState(false);
   const [showB, setShowB] = useState(true);
 
   const toggleShowA = () => setShowA(!showA);
@@ -167,6 +167,10 @@ function App() {
       return null; 
     }
   }
+
+
+
+  
   
   return (
     <div className="App">
@@ -176,16 +180,25 @@ function App() {
             <Row className="h-50 w-100"> 
               <Col>              
                 <Stack direction="horizontal" gap={3}>
-                  <div>Calendar</div>
+                  <h2>Calendar</h2>
                   <Button className="ms-auto" onClick={() => setShowCalendar(true)}>Expand</Button>
 
                  </Stack>
   <Stack gap={3}>
                 <div>How are you feeling today?</div>
                 <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
-                <Button onClick={addSymptom}>
-                  Add Symptom
-                </Button>
+                <Button onClick={() => { 
+                    setShowA(true);
+                     addSymptom();
+                     
+                     }} > Add Symptom </Button>
+                <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
+                        <Toast.Header>
+                          <strong className="me-auto"> Notification </strong>
+                        </Toast.Header>
+                        <Toast.Body> Symptom Logged!</Toast.Body>
+                      </Toast>
+
 
                 </Stack>
 
@@ -196,36 +209,54 @@ function App() {
                 onHide={() => setShowCalendar(false)}
                 dialogClassName="Modal" 
               >
-
-      
-                <h1 className="mx-auto">Calendar</h1>
-                <h3 className="mx-auto">How are you feeling today?</h3>
-                <Stack gap={2} className="mx-auto">
+                <Row>
+                  <Col className="h-100" lg={3}>
+                  
+                  <Stack gap={4} className="mx-auto" margin="10px" >
+                  <h1 className="mx-auto">Calendar</h1>
+                  <h3 className="mx-auto">How are you feeling today?</h3>
                             <input type="text" placeholder ="Add Symptom" value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})}/> 
  
 
                       <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newSymptom.start} 
                       onChange={(start) => setNewSymptom({ ...newSymptom, start })} />
 
+                  <Button onClick={() => { 
+                    setShowA(true);
+                     addSymptom();
+                     
+                     }} >
 
-                   <Button onClick={addSymptom}>
                     Add Symptom
                   </Button>
-                </Stack>
-                      <Calendar 
+                </Stack> 
+                <Toast onClose={() => setShowA(false)} show={showA} delay={3000} autohide>
+                        <Toast.Header>
+                          <strong className="me-auto"> Notification </strong>
+                        </Toast.Header>
+                        <Toast.Body> Symptom Logged!</Toast.Body>
+                      </Toast>
+                </Col>
+                <Col>
+                <Calendar 
                       formats = {formats}
                       localizer={localizer} 
                       events={allSymptoms} 
                       startAccessor={"start"} 
                       endAccessor={"end"} 
-                      style={{height:500, margin: "50px"}} />
+                      style={{height:500, margin: "50px"}} 
+                      views={['month', 'week', 'day']}/>
+                      
+                </Col>
+                </Row>
+
               </Modal>
             </Row>
 
             <Row className="h-50 w-100">
               <Col>
                 <Stack direction="horizontal" gap={3}>
-                  <div>Data</div>
+                  <h2 className= "Header" >Data</h2>
                   <Button className="ms-auto" onClick={() => setShowData(true)}>Expand</Button>  
                 </Stack>
               </Col>
@@ -250,7 +281,7 @@ function App() {
               <div> 
                <Notif/> 
               </div>
-              Current Volume: {vol} mL
+              <h2>Current Volume: {vol} mL </h2>
             </Row>
             <Row>
               <ProgressBar now={val} className="progressBar" variant="danger"/> 
