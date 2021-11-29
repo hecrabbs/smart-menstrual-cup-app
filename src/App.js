@@ -154,14 +154,28 @@ function App() {
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
 
-  const [newSymptom, setNewSymptom] = useState({title: "", start: "", end: ""})
+
+  const [newSymptom, changeNewSymptom] = useState({title: "", 
+  start: new Date(new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDay() - 2) , 
+  end: ""}) 
+  const setNewSymptom = (symptom) => {
+    // maintaining name to reduce refactor complexity 
+    symptom.end = symptom.start; 
+  
+    changeNewSymptom(symptom); 
+
+  }
   const [allSymptoms, setAllSymptoms] = useState(symptoms)
 
   function addSymptom(){ 
     setAllSymptoms([...allSymptoms, newSymptom])
   }
 
-
+  const formats = {
+    eventTimeRangeFormat: () => { 
+      return "";
+    },
+  };
 
   function notif(){ 
     if (val > 85){ 
@@ -193,13 +207,7 @@ function App() {
                  How are you feeling today?
                 <input type="text" placeholder ="Add Symptom" style={{width: "20%", marginRight:"10px"}}
                 value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})} 
-                /> 
-                
-                <DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start}  
-                onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}/>
-                {/* <DatePicker placeholderText="Date Experienced" style={{marginRight:"10px"}} selected={newSymptom.end} 
-                onChange={(end) => setNewSymptom({...newSymptom, end})} /> */}
-            
+                />
                 
                   <button style={{marginTop: "10px"}} onClick={addSymptom}>
                      Add Symptom
@@ -218,12 +226,10 @@ function App() {
                       <div>
                         <input type="text" placeholder ="Add Symptom" style={{width: "20%", marginRight:"10px"}}
                           value={newSymptom.title} onChange={(e) => setNewSymptom({...newSymptom, title: e.target.value})} 
-                        /> 
-                        {/* <DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start} 
-                        onChange={(start) => setNewSymptom({...newSymptom, start})} /> */}
+                      /> 
 
-<DatePicker placeholderText="Start Date" style={{marginRight:"10px"}} selected={newSymptom.start}  
-                onChange={(start) => setNewSymptom({...newSymptom, start}), (end) => setNewSymptom({...newSymptom, end})}/>
+                      <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newSymptom.start} 
+                      onChange={(start) => setNewSymptom({ ...newSymptom, start })} />
 
 
                         <button style={{marginTop: "10px"}} onClick={addSymptom}>
@@ -232,11 +238,11 @@ function App() {
 
                       </div>
                       <Calendar 
+                      formats = {formats}
                       localizer={localizer} 
                       events={allSymptoms} 
                       startAccessor={"start"} 
                       endAccessor={"end"} 
-                      views={MonthView}
                       style={{height:500, margin: "50px"}} />
 
                     </div>
