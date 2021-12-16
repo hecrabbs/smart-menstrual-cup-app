@@ -97,7 +97,7 @@ function App() {
 
 
   const [newSymptom, changeNewSymptom] = useState({title: "", 
-  start: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay() + 5) , 
+  start: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDay() + 12) , 
   end: ""}) 
   const setNewSymptom = (symptom) => {
     // maintaining name to reduce refactor complexity 
